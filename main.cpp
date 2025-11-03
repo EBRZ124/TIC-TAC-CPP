@@ -2,6 +2,23 @@
 #include<cstdlib>
 using namespace std;
 
+void win_checker(string field[3][3]){
+    bool win = false;
+    // Horizontal
+    if(field[0][0]==field[0][1] && field[0][1]==field[0][2]){ win = true; }
+    if(field[1][0]==field[1][1] && field[1][1]==field[1][2]){ win = true; }
+    if(field[2][0]==field[2][1] && field[2][1]==field[2][2]){ win = true; }
+    // Vertical
+    if(field[0][0]==field[1][0] && field[1][0]==field[2][0]){ win = true; }
+    if(field[0][1]==field[1][1] && field[1][1]==field[2][1]){ win = true; }
+    if(field[0][2]==field[1][2] && field[1][2]==field[2][2]){ win = true; }
+    // Diagonal
+    if(field[0][0]==field[1][1] && field[1][1]==field[2][2]){ win = true; }
+    if(field[1][2]==field[1][1] && field[1][1]==field[0][2]){ win = true; }
+    else{cout<< endl << "No one has won yet"<<endl;}
+
+}
+
 void player_attack_field(string field[3][3], int play){
      int number = 0;
 
@@ -64,6 +81,7 @@ int main(){
         else{
             player_attack_field(field, player_attack);
             display_field(field);
+            win_checker(field);
         }
     }
     
@@ -71,6 +89,7 @@ int main(){
     int enemy_attack1 = rand() % 9;
     enemy_attack_field(field, enemy_attack1);
     display_field(field);
+    win_checker(field);
 
     return 0;
 }
