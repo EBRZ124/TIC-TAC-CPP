@@ -11,6 +11,7 @@ int main()
     };
 
     for (int i = 0; i<3; i++){
+        cout << endl;
         for(int j = 0; j<3; j++){
             cout<<field[i][j];
         }
