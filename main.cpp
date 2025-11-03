@@ -4,18 +4,25 @@ using namespace std;
 
 void win_checker(string field[3][3]){
     bool win = false;
+
     // Horizontal
-    if(field[0][0]==field[0][1] && field[0][1]==field[0][2]){ win = true; cout << "someone won";}
-    if(field[1][0]==field[1][1] && field[1][1]==field[1][2]){ win = true; cout << "someone won";}
-    if(field[2][0]==field[2][1] && field[2][1]==field[2][2]){ win = true; cout << "someone won";}
+    if(field[0][0]==field[0][1] && field[0][1]==field[0][2]){ win = true;}
+    if(field[1][0]==field[1][1] && field[1][1]==field[1][2]){ win = true;}
+    if(field[2][0]==field[2][1] && field[2][1]==field[2][2]){ win = true;}
     // Vertical
-    if(field[0][0]==field[1][0] && field[1][0]==field[2][0]){ win = true; cout << "someone won";}
-    if(field[0][1]==field[1][1] && field[1][1]==field[2][1]){ win = true; cout << "someone won";}
-    if(field[0][2]==field[1][2] && field[1][2]==field[2][2]){ win = true; cout << "someone won";}
+    if(field[0][0]==field[1][0] && field[1][0]==field[2][0]){ win = true;}
+    if(field[0][1]==field[1][1] && field[1][1]==field[2][1]){ win = true;}
+    if(field[0][2]==field[1][2] && field[1][2]==field[2][2]){ win = true;}
     // Diagonal
-    if(field[0][0]==field[1][1] && field[1][1]==field[2][2]){ win = true; cout << "someone won";}
-    if(field[1][2]==field[1][1] && field[1][1]==field[0][2]){ win = true; cout << "someone won";}
-    else{cout<< endl << "No one has won yet"<<endl;}
+    if(field[0][0]==field[1][1] && field[1][1]==field[2][2]){ win = true;}
+    if(field[1][2]==field[1][1] && field[1][1]==field[0][2]){ win = true;}
+    
+    if(win){
+        cout << "Someone has won!" << endl;
+    }
+    else{
+        cout << "No one has won yet." << endl;
+    }
 
 }
 
