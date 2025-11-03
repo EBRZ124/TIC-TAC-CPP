@@ -1,4 +1,4 @@
-# TIC-TAC-CPP
+# TIC-TAC-CPP (WIP (Not yet fully functional))
 Simple text-based Tic Tac Toe game made in c++
 
 # Files
