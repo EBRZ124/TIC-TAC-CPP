@@ -124,15 +124,14 @@ int main(){
 
     srand(time(NULL)); 
     display_field(field);
+    int randomnumber = rand() % 2;
 
     while(!win){
-        //int randomnumber = rand() % 2;
-        int randomnumber = 0;
-
+        
         // Player goes first
         if(randomnumber == 0){
-
-            // Players move (first)
+            // Player
+            cout << "You make the first move." << endl;
             int player_attack;
             cout << endl << "Which A field do you want to attack: A";
             cin >> player_attack;
@@ -153,7 +152,7 @@ int main(){
             win_checker(field, win);
             if (win) break;
 
-            // Opponents move
+            // Opponent
             cout << endl << "Enemy's attack: " << endl;
             int enemy_attack1 = rand() % 9;
 
@@ -170,7 +169,9 @@ int main(){
 
         // Opponent goes first
         else if(randomnumber == 1){
-            //Opponent
+            
+            // Opponent
+            cout << "Opponent makes the first move." << endl;
             cout << endl << "Enemy's attack: " << endl;
             int enemy_attack1 = rand() % 9;
 
