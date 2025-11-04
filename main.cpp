@@ -6,6 +6,7 @@ void win_checker(string field[3][3], bool &checker){
     checker = false;
     bool player = false;
     bool opponent = false;
+    bool draw = false;
 
     // Horizontal X
     if(field[0][0]==field[0][1] && field[0][1]==field[0][2] && field[0][0] == "  X "){ player = true;}
@@ -29,6 +30,15 @@ void win_checker(string field[3][3], bool &checker){
     // Diagonal O
     if(field[0][0]==field[1][1] && field[1][1]==field[2][2] && field[0][0] == "  O "){ opponent = true;}
     if(field[2][0]==field[1][1] && field[1][1]==field[0][2] && field[2][0] == "  O "){ opponent = true;}
+
+    int fill_counter = 0;
+    for(int i=0; i<3; i++){
+        for(int j=0; j<3; j++){
+            if(field[i][j] == "  X " ^ field[i][j] == "  O "){
+                fill_counter++;
+            }
+        }
+    }
     
     if(player){
         cout << "You won!" << endl;
@@ -36,6 +46,10 @@ void win_checker(string field[3][3], bool &checker){
     } 
     else if(opponent){
         cout << "Opponent has won" << endl;
+        checker = true;
+    }
+    else if(fill_counter == 9){
+        cout << "It's a draw" << endl;
         checker = true;
     }
     else{
