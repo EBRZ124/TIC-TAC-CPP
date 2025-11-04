@@ -39,6 +39,24 @@ void player_attack_field(string field[3][3], int play){
      }
 }
 
+bool check_if_field_empty(string field[3][3], int attack){
+    int checker = 0;
+    for(int i=0; i<3; i++){
+        for(int j=0; j<3; j++){
+            if (checker == attack){
+                if(field[i][j] == "  X " || field[i][j] == "  O "){
+                    return false;
+                }
+                else{
+                    return true;
+                }
+            }
+        checker++;
+        }
+    }
+    return false;
+}
+
 void enemy_attack_field(string field[3][3], int enemy_play){
      int number = 0;
 
@@ -80,20 +98,27 @@ int main(){
         int randomnumber = 0;
         if(randomnumber == 0){
             int player_attack;
-            cout << endl << "Which A field do you want to attack: ";
+            cout << endl << "Which A field do you want to attack: A";
             cin >> player_attack;
-            if (player_attack > 8){
-                cout << "Input a valid A number :";
+            while (player_attack < 0 || player_attack > 8){
+                cout << "Input a valid A number: A";
                 cin >> player_attack;
             }
-            else{
-                player_attack_field(field, player_attack);
-                display_field(field);
-                win_checker(field);
+
+            while(!check_if_field_empty(field, player_attack)){
+                cout << "Field already taken, enter a valid number: A";
+                cin >> player_attack;
+                cout << endl;
             }
+            player_attack_field(field, player_attack);
+            display_field(field);
+            cout << endl;
         }
         cout << endl << "Enemy's attack: " << endl;
         int enemy_attack1 = rand() % 9;
+        while(!check_if_field_empty(field, enemy_attack1)){
+            int enemy_attack1 = rand() % 9;
+        }
         enemy_attack_field(field, enemy_attack1);
         display_field(field);
         win_checker(field);   
