@@ -30,18 +30,14 @@ void win_checker(string field[3][3]){
     if(field[0][0]==field[1][1] && field[1][1]==field[2][2] && field[0][0] == "  O "){ opponent = true;}
     if(field[1][2]==field[1][1] && field[1][1]==field[0][2] && field[1][2] == "  O "){ opponent = true;}
     
-    // Player has won
     if(player){
         cout << "You won!" << endl;
-    } else{
-        cout << "No one has won yet." << endl;
+    } 
+    else if(opponent){
+        cout << "Opponent has won" << endl;
     }
-
-    // Opponent has won
-    if(opponent){
-        cout << "The opponent has won" << endl;
-    } else {
-        cout << "No one has won yet." << endl;
+    else{
+        cout << "No one has won yet" << endl;
     }
 
 }
@@ -78,7 +74,7 @@ bool check_if_field_empty(string field[3][3], int attack){
 }
 
 void enemy_attack_field(string field[3][3], int enemy_play){
-     int number = 0;
+    int number = 0;
 
     for(int i=0; i<3; i++){
         for(int j=0; j<3; j++){
@@ -115,8 +111,55 @@ int main(){
 
     while(win != true){
         //int randomnumber = rand() % 2;
-        int randomnumber = 0;
+        int randomnumber = 1;
+
+        // Player goes first
         if(randomnumber == 0){
+
+            // Players move (first)
+            int player_attack;
+            cout << endl << "Which A field do you want to attack: A";
+            cin >> player_attack;
+            while (player_attack < 0 || player_attack > 8){
+                cout << "Input a valid A number: A";
+                cin >> player_attack;
+            }
+
+            while(!check_if_field_empty(field, player_attack)){
+                cout << "Field already taken, enter a valid number: A";
+                cin >> player_attack;
+                cout << endl;
+            }
+            player_attack_field(field, player_attack);
+            display_field(field);
+            cout << endl;
+
+            // Opponents move
+            cout << endl << "Enemy's attack: " << endl;
+            int enemy_attack1 = rand() % 9;
+            while(!check_if_field_empty(field, enemy_attack1)){
+                enemy_attack1 = rand() % 9;
+            }
+            enemy_attack_field(field, enemy_attack1);
+            display_field(field);
+            cout << endl;
+            win_checker(field);
+        }
+
+        // Opponent goes first
+        else if(randomnumber == 1){
+            //Opponent
+            cout << endl << "Enemy's attack: " << endl;
+            int enemy_attack1 = rand() % 9;
+            while(!check_if_field_empty(field, enemy_attack1)){
+                enemy_attack1 = rand() % 9;
+            }
+            enemy_attack_field(field, enemy_attack1);
+            display_field(field);
+            cout << endl;
+            win_checker(field);
+            
+            // Player
             int player_attack;
             cout << endl << "Which A field do you want to attack: A";
             cin >> player_attack;
@@ -134,14 +177,8 @@ int main(){
             display_field(field);
             cout << endl;
         }
-        cout << endl << "Enemy's attack: " << endl;
-        int enemy_attack1 = rand() % 9;
-        while(!check_if_field_empty(field, enemy_attack1)){
-            enemy_attack1 = rand() % 9;
-        }
-        enemy_attack_field(field, enemy_attack1);
-        display_field(field);
-        win_checker(field);   
+
+        // make a function or use one to end the game, when someone wins
     }
     return 0;
 }
