@@ -4,23 +4,43 @@ using namespace std;
 
 void win_checker(string field[3][3]){
     bool win = false;
+    bool player = false;
+    bool opponent = false;
 
-    // Horizontal
-    if(field[0][0]==field[0][1] && field[0][1]==field[0][2]){ win = true;}
-    if(field[1][0]==field[1][1] && field[1][1]==field[1][2]){ win = true;}
-    if(field[2][0]==field[2][1] && field[2][1]==field[2][2]){ win = true;}
-    // Vertical
-    if(field[0][0]==field[1][0] && field[1][0]==field[2][0]){ win = true;}
-    if(field[0][1]==field[1][1] && field[1][1]==field[2][1]){ win = true;}
-    if(field[0][2]==field[1][2] && field[1][2]==field[2][2]){ win = true;}
-    // Diagonal
-    if(field[0][0]==field[1][1] && field[1][1]==field[2][2]){ win = true;}
-    if(field[1][2]==field[1][1] && field[1][1]==field[0][2]){ win = true;}
+    // Horizontal X
+    if(field[0][0]==field[0][1] && field[0][1]==field[0][2] && field[0][0] == "  X "){ player = true;}
+    if(field[1][0]==field[1][1] && field[1][1]==field[1][2] && field[1][0] == "  X "){ player = true;}
+    if(field[2][0]==field[2][1] && field[2][1]==field[2][2] && field[2][0] == "  X "){ player = true;}
+    // Horizontal O
+    if(field[0][0]==field[0][1] && field[0][1]==field[0][2] && field[0][0] == "  O "){ opponent = true;}
+    if(field[1][0]==field[1][1] && field[1][1]==field[1][2] && field[1][0] == "  O "){ opponent = true;}
+    if(field[2][0]==field[2][1] && field[2][1]==field[2][2] && field[2][0] == "  O "){ opponent = true;}
+    // Vertical X
+    if(field[0][0]==field[1][0] && field[1][0]==field[2][0] && field[0][0] == "  X "){ player = true;}
+    if(field[0][1]==field[1][1] && field[1][1]==field[2][1] && field[0][1] == "  X "){ player = true;}
+    if(field[0][2]==field[1][2] && field[1][2]==field[2][2] && field[0][2] == "  X "){ player = true;}
+    // Vertical O
+    if(field[0][0]==field[1][0] && field[1][0]==field[2][0] && field[0][0] == "  O "){ opponent = true;}
+    if(field[0][1]==field[1][1] && field[1][1]==field[2][1] && field[0][1] == "  O "){ opponent = true;}
+    if(field[0][2]==field[1][2] && field[1][2]==field[2][2] && field[0][2] == "  O "){ opponent = true;}
+    // Diagonal X
+    if(field[0][0]==field[1][1] && field[1][1]==field[2][2] && field[0][0] == "  X "){ player = true;}
+    if(field[1][2]==field[1][1] && field[1][1]==field[0][2] && field[1][2] == "  X "){ player = true;}
+    // Diagonal O
+    if(field[0][0]==field[1][1] && field[1][1]==field[2][2] && field[0][0] == "  O "){ opponent = true;}
+    if(field[1][2]==field[1][1] && field[1][1]==field[0][2] && field[1][2] == "  O "){ opponent = true;}
     
-    if(win){
-        cout << "Someone has won!" << endl;
+    // Player has won
+    if(player){
+        cout << "You won!" << endl;
+    } else{
+        cout << "No one has won yet." << endl;
     }
-    else{
+
+    // Opponent has won
+    if(opponent){
+        cout << "The opponent has won" << endl;
+    } else {
         cout << "No one has won yet." << endl;
     }
 
