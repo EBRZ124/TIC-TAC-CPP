@@ -25,10 +25,10 @@ void win_checker(string field[3][3], bool &checker){
     if(field[0][2]==field[1][2] && field[1][2]==field[2][2] && field[0][2] == "  O "){ opponent = true;}
     // Diagonal X
     if(field[0][0]==field[1][1] && field[1][1]==field[2][2] && field[0][0] == "  X "){ player = true;}
-    if(field[1][2]==field[1][1] && field[1][1]==field[0][2] && field[1][2] == "  X "){ player = true;}
+    if(field[2][0]==field[1][1] && field[1][1]==field[0][2] && field[2][0] == "  X "){ player = true;}
     // Diagonal O
     if(field[0][0]==field[1][1] && field[1][1]==field[2][2] && field[0][0] == "  O "){ opponent = true;}
-    if(field[1][2]==field[1][1] && field[1][1]==field[0][2] && field[1][2] == "  O "){ opponent = true;}
+    if(field[2][0]==field[1][1] && field[1][1]==field[0][2] && field[2][0] == "  O "){ opponent = true;}
     
     if(player){
         cout << "You won!" << endl;
