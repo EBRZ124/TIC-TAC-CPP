@@ -137,7 +137,7 @@ int main(){
         cout << endl << "Enemy's attack: " << endl;
         int enemy_attack1 = rand() % 9;
         while(!check_if_field_empty(field, enemy_attack1)){
-            int enemy_attack1 = rand() % 9;
+            enemy_attack1 = rand() % 9;
         }
         enemy_attack_field(field, enemy_attack1);
         display_field(field);
