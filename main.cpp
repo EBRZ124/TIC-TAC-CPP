@@ -47,7 +47,7 @@ void win_checker(string field[3][3]){
 }
 
 void player_attack_field(string field[3][3], int play){
-     int number = 0;
+    int number = 0;
 
     for(int i=0; i<3; i++){
         for(int j=0; j<3; j++){
