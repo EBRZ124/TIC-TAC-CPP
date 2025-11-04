@@ -2,8 +2,8 @@
 #include<cstdlib>
 using namespace std;
 
-void win_checker(string field[3][3]){
-    bool win = false;
+void win_checker(string field[3][3], bool &checker){
+    checker = false;
     bool player = false;
     bool opponent = false;
 
@@ -32,9 +32,11 @@ void win_checker(string field[3][3]){
     
     if(player){
         cout << "You won!" << endl;
+        checker = true;
     } 
     else if(opponent){
         cout << "Opponent has won" << endl;
+        checker = true;
     }
     else{
         cout << "No one has won yet" << endl;
@@ -109,7 +111,7 @@ int main(){
     srand(time(NULL)); 
     display_field(field);
 
-    while(win != true){
+    while(!win){
         //int randomnumber = rand() % 2;
         int randomnumber = 1;
 
@@ -143,7 +145,7 @@ int main(){
             enemy_attack_field(field, enemy_attack1);
             display_field(field);
             cout << endl;
-            win_checker(field);
+            win_checker(field, win);
         }
 
         // Opponent goes first
@@ -157,7 +159,7 @@ int main(){
             enemy_attack_field(field, enemy_attack1);
             display_field(field);
             cout << endl;
-            win_checker(field);
+            win_checker(field, win);
             
             // Player
             int player_attack;
@@ -177,8 +179,6 @@ int main(){
             display_field(field);
             cout << endl;
         }
-
-        // make a function or use one to end the game, when someone wins
     }
     return 0;
 }
