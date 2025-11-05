@@ -12,9 +12,9 @@ int main()
     SetTargetFPS(60);
     //--------------------------------------------------------------------------------------
 
-    Texture2D background = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/background.png");
-    Button playButton{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/play-button.png",{20, 0}, 0.20};
-    Button exitButton{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/exit-button.png", {500, 0}, 0.20};
+    Texture2D background = LoadTexture("/Graphics/background.png");
+    Button playButton{"/Graphics/play-button.png",{20, 0}, 0.20};
+    Button exitButton{"/Graphics/exit-button.png", {500, 0}, 0.20};
     bool exit = false;
 
     // Main game loop
