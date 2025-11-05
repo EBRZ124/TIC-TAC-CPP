@@ -1,5 +1,6 @@
 #include"raylib.h"
 #include<iostream>
+#include<cstdlib>
 #include"buttons.hpp"
 
 
@@ -12,9 +13,10 @@ int main()
     SetTargetFPS(60);
     //--------------------------------------------------------------------------------------
 
-    Texture2D background = LoadTexture("/Graphics/background.png");
-    Button playButton{"/Graphics/play-button.png",{20, 0}, 0.20};
-    Button exitButton{"/Graphics/exit-button.png", {500, 0}, 0.20};
+    Texture2D background = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/background.png");
+    Texture2D playingGrid = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/playingGrid.png");
+    Button playButton{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/play-button.png",{524, 0}, 0.20};
+    Button exitButton{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/exit-button.png", {592, 412}, 0.10};
     bool exit = false;
 
     // Main game loop
@@ -23,7 +25,9 @@ int main()
         bool mousePressed = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
 
         if(playButton.isPressed(mousePosition, mousePressed)){
-            std::cout<<"Start Button Pressed" << std::endl;
+            srand(time(NULL));
+            // int randomnumber = rand() % 2;
+            int randomnumber = 0;
         }
         if(exitButton.isPressed(mousePosition, mousePressed)){
             exit = true;
@@ -32,12 +36,9 @@ int main()
         BeginDrawing();
         ClearBackground(BLACK);
         DrawTexture(background, 0, 0, WHITE);
+        DrawTexture(playingGrid, 15, 15, WHITE);
         exitButton.Draw();
         playButton.Draw();
-        DrawRectangle(113, 100, 5, 280, BLACK);
-        DrawRectangle(206, 100, 5, 280, BLACK);
-        DrawRectangle(20, 193, 280, 5, BLACK);
-        DrawRectangle(20, 286, 280, 5, BLACK);
         EndDrawing();
     }
 
