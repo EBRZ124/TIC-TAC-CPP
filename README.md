@@ -14,3 +14,5 @@ tic-tac-toe.cpp - main file from which the program can be built and ran with a g
 buttons.hpp - object for buttons
 
 buttons.cpp - button logic and functions
+
+Graphics - visual elements for the GUI
