@@ -58,46 +58,48 @@ int main()
         playButton.Draw();
         placementButton1.Draw();
 
+        // Enemy Attack Positions
         if (currentEnemyAttack >= 0) {
-            int xPos[9] = {50, 200, 350, 50, 200, 350, 50, 200, 350};
-            int yPos[9] = {30, 30, 30, 190, 190, 190, 340, 340, 340};
-            int drawX;
-            int drawY;
+            int EnemyXPos[9] = {50, 200, 350, 50, 200, 350, 50, 200, 350};
+            int EnemyYPos[9] = {30, 30, 30, 190, 190, 190, 340, 340, 340};
+            int EnemyDrawX;
+            int EnemyDrawY;
 
-            for(int xIndex = 0; xIndex<9; xIndex++){
-                if(xIndex == currentEnemyAttack){
-                    drawX = xPos[xIndex];
+            for(int EnemyXIndex = 0; EnemyXIndex<9; EnemyXIndex++){
+                if(EnemyXIndex == currentEnemyAttack){
+                    EnemyDrawX = EnemyXPos[EnemyXIndex];
                 }
             }
-            for(int yIndex = 0; yIndex<9; yIndex++){
-                if (yIndex == currentEnemyAttack){
-                    drawY = yPos[yIndex];
+            for(int EnemyYIndex = 0; EnemyYIndex<9; EnemyYIndex++){
+                if (EnemyYIndex == currentEnemyAttack){
+                    EnemyDrawY = EnemyYPos[EnemyYIndex];
                 }
             }
 
-            Vector2 pos = { static_cast<float>(drawX), static_cast<float>(drawY) };
+            Vector2 pos = { static_cast<float>(EnemyDrawX), static_cast<float>(EnemyDrawY) };
             float scale = 0.25f;
             DrawTextureEx(circle, pos, 0.0f, scale, WHITE);
         }
 
+        // Player Attac Positions
         if (currentPlayerAttack >= 0) {
-            int xPos[9] = {50, 200, 350, 50, 200, 350, 50, 200, 350};
-            int yPos[9] = {30, 30, 30, 190, 190, 190, 340, 340, 340};
-            int drawX;
-            int drawY;
+            int PlayerXPos[9] = {50, 200, 350, 50, 200, 350, 50, 200, 350};
+            int PlayerYPos[9] = {30, 30, 30, 190, 190, 190, 340, 340, 340};
+            int PlayerDrawX;
+            int PlayerDrawY;
 
-            for(int xIndex = 0; xIndex<9; xIndex++){
-                if(xIndex == currentEnemyAttack){
-                    drawX = xPos[xIndex];
+            for(int PlayerXIndex = 0; PlayerXIndex<9; PlayerXIndex++){
+                if(PlayerXIndex == currentPlayerAttack){
+                    PlayerDrawX = PlayerXPos[PlayerXIndex];
                 }
             }
-            for(int yIndex = 0; yIndex<9; yIndex++){
-                if (yIndex == currentEnemyAttack){
-                    drawY = yPos[yIndex];
+            for(int PlayerYIndex = 0; PlayerYIndex<9; PlayerYIndex++){
+                if (PlayerYIndex == currentPlayerAttack){
+                    PlayerDrawY = PlayerYPos[PlayerYIndex];
                 }
             }
 
-            Vector2 pos = { static_cast<float>(drawX), static_cast<float>(drawY) };
+            Vector2 pos = { static_cast<float>(PlayerDrawX), static_cast<float>(PlayerDrawY) };
             float scale = 0.25f;
             DrawTextureEx(cross, pos, 0.0f, scale, WHITE);
         }
