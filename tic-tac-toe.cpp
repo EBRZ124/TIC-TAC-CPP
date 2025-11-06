@@ -41,6 +41,7 @@ int main()
     int currentEnemyAttack = -1;
     int currentPlayerAttack = -1;
     bool playerAttacks[9] = {false};
+    bool TakenFields[9] = {false};
 
     // Main game loop
     while (!WindowShouldClose() && !exit) {
@@ -49,7 +50,13 @@ int main()
 
         if (playButton.isPressed(mousePosition, mousePressed)) {
             int enemy_attack = rand() % 9;
-            currentEnemyAttack = enemy_attack;
+            if(TakenFields[enemy_attack]){
+                std::cout<<"Field Taken" << std::endl;
+            }
+            else{
+                currentEnemyAttack = enemy_attack;
+                TakenFields[enemy_attack] = true;
+            }
         }
 
         if (exitButton.isPressed(mousePosition, mousePressed)) {
@@ -57,31 +64,76 @@ int main()
         }
 
         if(placementButton1.isPressed(mousePosition, mousePressed)){
-            playerAttacks[0] = true;
+            if(TakenFields[0]){
+                std::cout<<"Field Taken";
+            } else {
+                playerAttacks[0] = true;
+                TakenFields[0] = true;
+            }
         }
         if(placementButton2.isPressed(mousePosition, mousePressed)){
-            playerAttacks[1] = true;
+            if(TakenFields[1]){
+                std::cout<<"Field Taken";
+            } else {
+                playerAttacks[1] = true;
+                TakenFields[1] = true;
+            }
         }
         if(placementButton3.isPressed(mousePosition, mousePressed)){
-            playerAttacks[2] = true;
+            if(TakenFields[2]){
+                std::cout<<"Field Taken";
+            } else {
+                playerAttacks[2] = true;
+                TakenFields[2] = true;
+            }
         }
         if(placementButton4.isPressed(mousePosition, mousePressed)){
-            playerAttacks[3] = true;
+            if(TakenFields[3]){
+                std::cout<<"Field Taken";
+            } else {
+                playerAttacks[3] = true;
+                TakenFields[3] = true;
+            }
         }
         if(placementButton5.isPressed(mousePosition, mousePressed)){
-            playerAttacks[4] = true;
+            if(TakenFields[4]){
+                std::cout<<"Field Taken";
+            } else {
+                playerAttacks[4] = true;
+                TakenFields[4] = true;
+            }
         }
         if(placementButton6.isPressed(mousePosition, mousePressed)){
-            playerAttacks[5] = true;
+            if(TakenFields[5]){
+                std::cout<<"Field Taken";
+            } else {
+                playerAttacks[5] = true;
+                TakenFields[5] = true;
+            }
         }
         if(placementButton7.isPressed(mousePosition, mousePressed)){
-            playerAttacks[6] = true;
+            if(TakenFields[6]){
+                std::cout<<"Field Taken";
+            } else {
+                playerAttacks[6] = true;
+                TakenFields[6] = true;
+            }
         }
         if(placementButton8.isPressed(mousePosition, mousePressed)){
-            playerAttacks[7] = true;
+            if(TakenFields[7]){
+                std::cout<<"Field Taken";
+            } else {
+                playerAttacks[7] = true;
+                TakenFields[7] = true;
+            }
         }
         if(placementButton9.isPressed(mousePosition, mousePressed)){
-            playerAttacks[8] = true;
+            if(TakenFields[8]){
+                std::cout<<"Field Taken";
+            } else {
+                playerAttacks[8] = true;
+                TakenFields[8] = true;
+            }
         }
 
         BeginDrawing();
