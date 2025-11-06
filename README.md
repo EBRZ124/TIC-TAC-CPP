@@ -7,15 +7,16 @@ WIP - a GUI using Raylib library https://github.com/raysan5/raylib
 
 # Files
 
-
-|Scrap - folder with the primitive version of the game
-|
-|main.cpp - primitive version which has the logic and algorithms and can be used seperately to play the game, but with no GUI
-
 tic-tac-toe.cpp - main file from which the program can be built and ran with a graphical interface
 
 buttons.hpp - object for buttons
 
 buttons.cpp - button logic and functions
 
-Graphics - folder with visual elements for the GUI
+|Graphics - folder with visual elements for the GUI
+
+|Scrap - folder with the primitive version of the game
+
+|
+
+|main.cpp - primitive version which has the logic and algorithms and can be used seperately to play the game, but with no GUI
