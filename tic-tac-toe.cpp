@@ -23,7 +23,17 @@ int main()
     // Buttons
     Button playButton{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/play-button.png",{524, 0}, 0.20};
     Button exitButton{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/exit-button.png", {592, 412}, 0.10};
-    Button placementButton1{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {15, 15}, 0.30};
+    
+    // Placemenet buttons for the player/user
+    Button placementButton1{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {25, 15}, 0.30};
+    Button placementButton2{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {180, 15}, 0.30};
+    Button placementButton3{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {340, 15}, 0.30};
+    Button placementButton4{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {25, 175}, 0.30};
+    Button placementButton5{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {180, 175}, 0.30};
+    Button placementButton6{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {340, 175}, 0.30};
+    Button placementButton7{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {25, 330}, 0.30};
+    Button placementButton8{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {180, 330}, 0.30};
+    Button placementButton9{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {340, 330}, 0.30};
     bool exit = false;
     
     srand(time(NULL));
@@ -49,6 +59,38 @@ int main()
             int player_attack = 0;
             currentPlayerAttack = player_attack;
         }
+        if(placementButton2.isPressed(mousePosition, mousePressed)){
+            int player_attack = 0;
+            currentPlayerAttack = player_attack;
+        }
+        if(placementButton3.isPressed(mousePosition, mousePressed)){
+            int player_attack = 0;
+            currentPlayerAttack = player_attack;
+        }
+        if(placementButton4.isPressed(mousePosition, mousePressed)){
+            int player_attack = 0;
+            currentPlayerAttack = player_attack;
+        }
+        if(placementButton5.isPressed(mousePosition, mousePressed)){
+            int player_attack = 0;
+            currentPlayerAttack = player_attack;
+        }
+        if(placementButton6.isPressed(mousePosition, mousePressed)){
+            int player_attack = 0;
+            currentPlayerAttack = player_attack;
+        }
+        if(placementButton7.isPressed(mousePosition, mousePressed)){
+            int player_attack = 0;
+            currentPlayerAttack = player_attack;
+        }
+        if(placementButton8.isPressed(mousePosition, mousePressed)){
+            int player_attack = 0;
+            currentPlayerAttack = player_attack;
+        }
+        if(placementButton9.isPressed(mousePosition, mousePressed)){
+            int player_attack = 0;
+            currentPlayerAttack = player_attack;
+        }
 
         BeginDrawing();
         ClearBackground(BLACK);
@@ -57,6 +99,14 @@ int main()
         exitButton.Draw();
         playButton.Draw();
         placementButton1.Draw();
+        placementButton2.Draw();
+        placementButton3.Draw();
+        placementButton4.Draw();
+        placementButton5.Draw();
+        placementButton6.Draw();
+        placementButton7.Draw();
+        placementButton8.Draw();
+        placementButton9.Draw();
 
         // Enemy Attack Positions
         if (currentEnemyAttack >= 0) {
