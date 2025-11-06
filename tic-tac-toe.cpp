@@ -40,6 +40,7 @@ int main()
 
     int currentEnemyAttack = -1;
     int currentPlayerAttack = -1;
+    bool playerAttacks[9] = {false};
 
     // Main game loop
     while (!WindowShouldClose() && !exit) {
@@ -56,40 +57,31 @@ int main()
         }
 
         if(placementButton1.isPressed(mousePosition, mousePressed)){
-            int player_attack = 0;
-            currentPlayerAttack = player_attack;
+            playerAttacks[0] = true;
         }
         if(placementButton2.isPressed(mousePosition, mousePressed)){
-            int player_attack = 0;
-            currentPlayerAttack = player_attack;
+            playerAttacks[1] = true;
         }
         if(placementButton3.isPressed(mousePosition, mousePressed)){
-            int player_attack = 0;
-            currentPlayerAttack = player_attack;
+            playerAttacks[2] = true;
         }
         if(placementButton4.isPressed(mousePosition, mousePressed)){
-            int player_attack = 0;
-            currentPlayerAttack = player_attack;
+            playerAttacks[3] = true;
         }
         if(placementButton5.isPressed(mousePosition, mousePressed)){
-            int player_attack = 0;
-            currentPlayerAttack = player_attack;
+            playerAttacks[4] = true;
         }
         if(placementButton6.isPressed(mousePosition, mousePressed)){
-            int player_attack = 0;
-            currentPlayerAttack = player_attack;
+            playerAttacks[5] = true;
         }
         if(placementButton7.isPressed(mousePosition, mousePressed)){
-            int player_attack = 0;
-            currentPlayerAttack = player_attack;
+            playerAttacks[6] = true;
         }
         if(placementButton8.isPressed(mousePosition, mousePressed)){
-            int player_attack = 0;
-            currentPlayerAttack = player_attack;
+            playerAttacks[7] = true;
         }
         if(placementButton9.isPressed(mousePosition, mousePressed)){
-            int player_attack = 0;
-            currentPlayerAttack = player_attack;
+            playerAttacks[8] = true;
         }
 
         BeginDrawing();
@@ -107,6 +99,17 @@ int main()
         placementButton7.Draw();
         placementButton8.Draw();
         placementButton9.Draw();
+
+        // Player Attac Positions
+        int PlayerXPos[9] = {50, 200, 350, 50, 200, 350, 50, 200, 350};
+        int PlayerYPos[9] = {30, 30, 30, 190, 190, 190, 340, 340, 340};    
+
+        for(int i=0; i<9; i++){
+            if(playerAttacks[i]){
+                Vector2 pos = {(float)PlayerXPos[i], (float)PlayerYPos[i]};
+                DrawTextureEx(cross, pos, 0.0f, 0.25f, WHITE);
+            }
+        }    
 
         // Enemy Attack Positions
         if (currentEnemyAttack >= 0) {
@@ -131,28 +134,6 @@ int main()
             DrawTextureEx(circle, pos, 0.0f, scale, WHITE);
         }
 
-        // Player Attac Positions
-        if (currentPlayerAttack >= 0) {
-            int PlayerXPos[9] = {50, 200, 350, 50, 200, 350, 50, 200, 350};
-            int PlayerYPos[9] = {30, 30, 30, 190, 190, 190, 340, 340, 340};
-            int PlayerDrawX;
-            int PlayerDrawY;
-
-            for(int PlayerXIndex = 0; PlayerXIndex<9; PlayerXIndex++){
-                if(PlayerXIndex == currentPlayerAttack){
-                    PlayerDrawX = PlayerXPos[PlayerXIndex];
-                }
-            }
-            for(int PlayerYIndex = 0; PlayerYIndex<9; PlayerYIndex++){
-                if (PlayerYIndex == currentPlayerAttack){
-                    PlayerDrawY = PlayerYPos[PlayerYIndex];
-                }
-            }
-
-            Vector2 pos = { static_cast<float>(PlayerDrawX), static_cast<float>(PlayerDrawY) };
-            float scale = 0.25f;
-            DrawTextureEx(cross, pos, 0.0f, scale, WHITE);
-        }
         EndDrawing();
     }
 
@@ -160,5 +141,3 @@ int main()
 
     return 0;
 }
-
-
