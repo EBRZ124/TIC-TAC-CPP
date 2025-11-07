@@ -3,9 +3,10 @@
 #include<cstdlib>
 #include"buttons.hpp"
 
-void checkWin(int fields_taken_value[9], bool &playerWin, bool &enemyWin){
+void checkWin(int fields_taken_value[9], bool &playerWin, bool &enemyWin, bool &playerDraw){
     playerWin = false;
     enemyWin = false;
+    playerDraw = false;
 
     // Horizontal
     if(fields_taken_value[0]==fields_taken_value[1] && fields_taken_value[1]==fields_taken_value[2] && fields_taken_value[0] == 1) playerWin = true;
@@ -44,6 +45,7 @@ int main()
     Texture2D circle = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/circle.png");
     Texture2D win_screen = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/player-win.png");
     Texture2D lose_screen = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/enemy-win.png");
+    Texture2D draw_screen = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/player-draw.png");
 
     // Big textures
     Texture2D background = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/background.png");
@@ -78,6 +80,7 @@ int main()
     double enemyMoveTime = 0;
     int pendingEnemyAttack = -1;
     int fields_taken_value[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0}; 
+    int to_draw_counter = 0;
 
     // Win checking
     bool playerWin = false;
@@ -90,6 +93,8 @@ int main()
     bool showEnemyMoveIndicator = false;
     bool showPlayerMoveIndicator = false;
     bool enemyThinking = false;
+    bool player_turn = false;
+    bool playerDraw = false;
     bool startGame = false;
 
     // Main game loop
@@ -113,37 +118,42 @@ int main()
         if (exitButton.isPressed(mousePosition, mousePressed)) {
             exit = true;
         }
+        if(player_turn){
         for (int i = 0; i < 9; i++) {
-            if (player_placement_buttons[i].isPressed(mousePosition, mousePressed)) {
-                if (TakenFields[i]) {
-                    std::cout << "Field Taken" << std::endl;
-                } else {
-                    playerAttacks[i] = true;
-                    TakenFields[i] = true;
-                    fields_taken_value[i] = 1;
-                    checkWin(fields_taken_value, playerWin, enemyWin);
+                if (player_placement_buttons[i].isPressed(mousePosition, mousePressed)) {
+                    if (TakenFields[i]) {
+                        std::cout << "Field Taken" << std::endl;
+                    } else {
+                        playerAttacks[i] = true;
+                        TakenFields[i] = true;
+                        fields_taken_value[i] = 1;
+                        to_draw_counter++;
 
-                    enemyThinking = true;
-                    enemyMoveTime = GetTime() + 1.5;
+                        checkWin(fields_taken_value, playerWin, enemyWin, playerDraw);
 
-                    showPlayerMoveIndicator = false;
-                    showEnemyMoveIndicator = true;
+                        player_turn = false;
+                        enemyThinking = true;
+                        enemyMoveTime = GetTime() + 1.5;
 
-                    int randomField = rand() % 9;
-                    while (TakenFields[randomField]) {
-                        randomField = rand() % 9;
+                        showPlayerMoveIndicator = false;
+                        showEnemyMoveIndicator = true;
+
+                        int randomField = rand() % 9;
+                        while (TakenFields[randomField]) {
+                            randomField = rand() % 9;
+                        }
+
+                        pendingEnemyAttack = randomField;
+                        break;
                     }
-
-                    pendingEnemyAttack = randomField;
                 }
             }
         }
         BeginDrawing();
+        ClearBackground(BLACK);
         for(int fieldButton=0; fieldButton<9; fieldButton++){
             player_placement_buttons[fieldButton].Draw();
         }
-
-        ClearBackground(BLACK);
         DrawTexture(background, 0, 0, WHITE);
         DrawTexture(playingGrid, 15, 15, WHITE);
         exitButton.Draw();
@@ -171,15 +181,19 @@ int main()
             enemyAttacks[pendingEnemyAttack] = true;
             TakenFields[pendingEnemyAttack] = true;
             fields_taken_value[pendingEnemyAttack] = 2;
-            checkWin(fields_taken_value, playerWin, enemyWin);
 
             currentEnemyAttack = pendingEnemyAttack;
 
             enemyThinking = false;
             pendingEnemyAttack = -1;
 
+            player_turn = true;
+
             showEnemyMoveIndicator = false;
             showPlayerMoveIndicator = true;
+            to_draw_counter ++;
+
+            checkWin(fields_taken_value, playerWin, enemyWin, playerDraw);
         }
 
         // Enemy Attack Positions
@@ -196,13 +210,15 @@ int main()
                 }
             }   
         }
-        if(playerWin || enemyWin){
+        if(to_draw_counter == 9) playerDraw = true;
+        if(playerWin || enemyWin || playerDraw){
             enemyThinking = false;
             showPlayerMoveIndicator = false;
             showEnemyMoveIndicator = false;
 
             if(playerWin) DrawTexture(win_screen, 0, 0, WHITE);
             if(enemyWin) DrawTexture(lose_screen, 0, 0, WHITE);
+            if(playerDraw) DrawTexture(draw_screen, 0, 0, WHITE);
 
         }
 
