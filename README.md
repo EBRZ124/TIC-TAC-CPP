@@ -13,10 +13,10 @@ buttons.hpp - object for buttons
 
 buttons.cpp - button logic and functions
 
-|Graphics - folder with visual elements for the GUI
+    .
+    ├── Scrap - folder with the primitive version of the game
+    │   ├── main.cpp - primitive version which has the logic and algorithms and can be used seperately to play the game, but with no GUI
+    ├── Graphics - folder with visual elements for the GUI
+  
 
-|Scrap - folder with the primitive version of the game
 
-|
-
-|main.cpp - primitive version which has the logic and algorithms and can be used seperately to play the game, but with no GUI
