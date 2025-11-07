@@ -41,6 +41,7 @@ int main()
     int currentEnemyAttack = -1;
     int currentPlayerAttack = -1;
     bool playerAttacks[9] = {false};
+    bool enemyAttacks[9] = { false };
     bool TakenFields[9] = {false};
     bool startGame = false;
 
@@ -58,12 +59,16 @@ int main()
             else{
                 currentEnemyAttack = enemy_attack;
                 TakenFields[enemy_attack] = true;
+                enemyAttacks[enemy_attack] = true;
+                TakenFields[enemy_attack] = true;
             }
         }
 
         if (exitButton.isPressed(mousePosition, mousePressed)) {
             exit = true;
         }
+            
+            // PLayers attacks
             if(placementButton1.isPressed(mousePosition, mousePressed)){
                 if(TakenFields[0]){
                     std::cout<<"Field Taken";
@@ -89,7 +94,8 @@ int main()
                         enemy_attack2 = rand() % 9;
                     }
                     currentEnemyAttack = enemy_attack2;
-                    TakenFields[enemy_attack2]= true;
+                    enemyAttacks[enemy_attack2]= true;
+                    TakenFields[enemy_attack2] = true;
                 }
             }
             if(placementButton3.isPressed(mousePosition, mousePressed)){
@@ -103,6 +109,7 @@ int main()
                         enemy_attack3 = rand() % 9;
                     }
                     currentEnemyAttack = enemy_attack3;
+                    enemyAttacks[enemy_attack3] = true;
                     TakenFields[enemy_attack3]= true;
                 }
             }
@@ -117,6 +124,7 @@ int main()
                         enemy_attack4 = rand() % 9;
                     }
                     currentEnemyAttack = enemy_attack4;
+                    enemyAttacks[enemy_attack4]= true;
                     TakenFields[enemy_attack4]= true;
                 }
             }
@@ -131,6 +139,7 @@ int main()
                         enemy_attack5 = rand() % 9;
                     }
                     currentEnemyAttack = enemy_attack5;
+                    enemyAttacks[enemy_attack5] = true;
                     TakenFields[enemy_attack5]= true;
                 }
             }
@@ -145,6 +154,7 @@ int main()
                         enemy_attack6 = rand() % 9;
                     }
                     currentEnemyAttack = enemy_attack6;
+                    enemyAttacks[enemy_attack6] = true;
                     TakenFields[enemy_attack6]= true;
                 }
             }
@@ -159,6 +169,7 @@ int main()
                         enemy_attack7 = rand() % 9;
                     }
                     currentEnemyAttack = enemy_attack7;
+                    enemyAttacks[enemy_attack7] = true;
                     TakenFields[enemy_attack7]= true;
                 }
             }
@@ -173,6 +184,7 @@ int main()
                         enemy_attack8 = rand() % 9;
                     }
                     currentEnemyAttack = enemy_attack8;
+                    enemyAttacks[enemy_attack8] = true;
                     TakenFields[enemy_attack8]= true;
                 }
             }
@@ -213,8 +225,8 @@ int main()
 
         for(int i=0; i<9; i++){
             if(playerAttacks[i]){
-                Vector2 pos = {(float)PlayerXPos[i], (float)PlayerYPos[i]};
-                DrawTextureEx(cross, pos, 0.0f, 0.25f, WHITE);
+                Vector2 crossPos = {(float)PlayerXPos[i], (float)PlayerYPos[i]};
+                DrawTextureEx(cross, crossPos, 0.0f, 0.25f, WHITE);
             }
         }    
 
@@ -225,20 +237,12 @@ int main()
             int EnemyDrawX;
             int EnemyDrawY;
 
-            for(int EnemyXIndex = 0; EnemyXIndex<9; EnemyXIndex++){
-                if(EnemyXIndex == currentEnemyAttack){
-                    EnemyDrawX = EnemyXPos[EnemyXIndex];
+            for(int i=0; i<9; i++){
+                if(enemyAttacks[i]){
+                    Vector2 circlePos = {(float)EnemyXPos[i], (float)EnemyYPos[i]};
+                    DrawTextureEx(circle, circlePos, 0.0f, 0.25f, WHITE);
                 }
-            }
-            for(int EnemyYIndex = 0; EnemyYIndex<9; EnemyYIndex++){
-                if (EnemyYIndex == currentEnemyAttack){
-                    EnemyDrawY = EnemyYPos[EnemyYIndex];
-                }
-            }
-
-            Vector2 pos = { static_cast<float>(EnemyDrawX), static_cast<float>(EnemyDrawY) };
-            float scale = 0.25f;
-            DrawTextureEx(circle, pos, 0.0f, scale, WHITE);
+            }   
         }
 
         EndDrawing();
