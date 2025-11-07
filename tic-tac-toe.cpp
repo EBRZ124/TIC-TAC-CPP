@@ -3,6 +3,33 @@
 #include<cstdlib>
 #include"buttons.hpp"
 
+void checkWin(int fields_taken_value[9], bool &playerWin, bool &enemyWin){
+    playerWin = false;
+    enemyWin = false;
+
+    // Horizontal
+    if(fields_taken_value[0]==fields_taken_value[1] && fields_taken_value[1]==fields_taken_value[2] && fields_taken_value[0] == 1) playerWin = true;
+    if(fields_taken_value[3]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[5] && fields_taken_value[3] == 1) playerWin = true;
+    if(fields_taken_value[6]==fields_taken_value[7] && fields_taken_value[7]==fields_taken_value[8] && fields_taken_value[6] == 1) playerWin = true;
+    if(fields_taken_value[0]==fields_taken_value[1] && fields_taken_value[1]==fields_taken_value[2] && fields_taken_value[0] == 2) enemyWin = true;
+    if(fields_taken_value[3]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[5] && fields_taken_value[3] == 2) enemyWin = true;
+    if(fields_taken_value[6]==fields_taken_value[7] && fields_taken_value[7]==fields_taken_value[8] && fields_taken_value[6] == 2) enemyWin = true;
+
+    // Vertical
+    if(fields_taken_value[0]==fields_taken_value[3] && fields_taken_value[3]==fields_taken_value[6] && fields_taken_value[0] == 1) playerWin = true;
+    if(fields_taken_value[1]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[7] && fields_taken_value[1] == 1) playerWin = true;
+    if(fields_taken_value[2]==fields_taken_value[5] && fields_taken_value[5]==fields_taken_value[8] && fields_taken_value[2] == 1) playerWin = true;
+    if(fields_taken_value[0]==fields_taken_value[3] && fields_taken_value[3]==fields_taken_value[6] && fields_taken_value[0] == 2) enemyWin = true;
+    if(fields_taken_value[1]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[7] && fields_taken_value[1] == 2) enemyWin = true;
+    if(fields_taken_value[2]==fields_taken_value[5] && fields_taken_value[5]==fields_taken_value[8] && fields_taken_value[2] == 2) enemyWin = true;
+
+    // Diagonal
+    if(fields_taken_value[0]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[8] && fields_taken_value[0] == 1) playerWin = true;
+    if(fields_taken_value[6]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[2] && fields_taken_value[6] == 1) playerWin = true;
+    if(fields_taken_value[0]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[8] && fields_taken_value[0] == 2) enemyWin = true;
+    if(fields_taken_value[6]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[2] && fields_taken_value[6] == 2) enemyWin = true;
+}
+
 
 int main()
 {
@@ -15,6 +42,8 @@ int main()
     // PLaying elements
     Texture2D cross = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/cross.png");
     Texture2D circle = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/circle.png");
+    Texture2D win_screen = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/player-win.png");
+    Texture2D lose_screen = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/enemy-win.png");
 
     // Big textures
     Texture2D background = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/background.png");
@@ -32,10 +61,10 @@ int main()
     player_placement_buttons[0] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {25, 15}, 0.3);  
     player_placement_buttons[1] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {180, 15}, 0.3);  
     player_placement_buttons[2] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {340, 15}, 0.3);  
-    player_placement_buttons[3] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {25, 15}, 0.3);  
+    player_placement_buttons[3] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {25, 175}, 0.3);  
     player_placement_buttons[4] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {180, 175}, 0.3);  
     player_placement_buttons[5] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {340, 175}, 0.3);  
-    player_placement_buttons[6] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {25, 175}, 0.3);  
+    player_placement_buttons[6] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {25, 330}, 0.3);  
     player_placement_buttons[7] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {180, 330}, 0.3);  
     player_placement_buttons[8] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {340, 330}, 0.3);    
 
@@ -53,25 +82,6 @@ int main()
     // Win checking
     bool playerWin = false;
     bool enemyWin = false;
-    // Horizontal
-    if(fields_taken_value[0]==fields_taken_value[1] && fields_taken_value[1]==fields_taken_value[2] && fields_taken_value[0] == 1){ playerWin = true;}
-    if(fields_taken_value[3]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[5] && fields_taken_value[3] == 1){ playerWin = true;}
-    if(fields_taken_value[6]==fields_taken_value[7] && fields_taken_value[7]==fields_taken_value[8] && fields_taken_value[6] == 1){ playerWin = true;}
-    if(fields_taken_value[0]==fields_taken_value[1] && fields_taken_value[1]==fields_taken_value[2] && fields_taken_value[0] == 2){ enemyWin = true;}
-    if(fields_taken_value[3]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[5] && fields_taken_value[3] == 2){ enemyWin = true;}
-    if(fields_taken_value[6]==fields_taken_value[7] && fields_taken_value[7]==fields_taken_value[8] && fields_taken_value[6] == 2){ enemyWin = true;}
-    // Vertical
-    if(fields_taken_value[0]==fields_taken_value[3] && fields_taken_value[3]==fields_taken_value[6] && fields_taken_value[0] == 1){ playerWin = true;}
-    if(fields_taken_value[1]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[7] && fields_taken_value[1] == 1){ playerWin = true;}
-    if(fields_taken_value[2]==fields_taken_value[5] && fields_taken_value[5]==fields_taken_value[8] && fields_taken_value[2] == 1){ playerWin = true;}
-    if(fields_taken_value[0]==fields_taken_value[3] && fields_taken_value[3]==fields_taken_value[6] && fields_taken_value[0] == 2){ enemyWin = true;}
-    if(fields_taken_value[1]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[7] && fields_taken_value[1] == 2){ enemyWin = true;}
-    if(fields_taken_value[2]==fields_taken_value[5] && fields_taken_value[5]==fields_taken_value[8] && fields_taken_value[2] == 2){ enemyWin = true;}
-    // Diagonal
-    if(fields_taken_value[0]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[8] && fields_taken_value[0] == 1){ playerWin = true;}
-    if(fields_taken_value[6]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[2] && fields_taken_value[3] == 1){ playerWin = true;}
-    if(fields_taken_value[0]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[8] && fields_taken_value[0] == 2){ enemyWin = true;}
-    if(fields_taken_value[6]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[2] && fields_taken_value[3] == 2){ enemyWin = true;}
 
     //booleans
     bool playerAttacks[9] = {false};
@@ -111,6 +121,7 @@ int main()
                     playerAttacks[i] = true;
                     TakenFields[i] = true;
                     fields_taken_value[i] = 1;
+                    checkWin(fields_taken_value, playerWin, enemyWin);
 
                     enemyThinking = true;
                     enemyMoveTime = GetTime() + 1.5;
@@ -128,10 +139,11 @@ int main()
             }
         }
         BeginDrawing();
-        ClearBackground(BLACK);
         for(int fieldButton=0; fieldButton<9; fieldButton++){
             player_placement_buttons[fieldButton].Draw();
         }
+
+        ClearBackground(BLACK);
         DrawTexture(background, 0, 0, WHITE);
         DrawTexture(playingGrid, 15, 15, WHITE);
         exitButton.Draw();
@@ -159,6 +171,8 @@ int main()
             enemyAttacks[pendingEnemyAttack] = true;
             TakenFields[pendingEnemyAttack] = true;
             fields_taken_value[pendingEnemyAttack] = 2;
+            checkWin(fields_taken_value, playerWin, enemyWin);
+
             currentEnemyAttack = pendingEnemyAttack;
 
             enemyThinking = false;
@@ -182,6 +196,16 @@ int main()
                 }
             }   
         }
+        if(playerWin || enemyWin){
+            enemyThinking = false;
+            showPlayerMoveIndicator = false;
+            showEnemyMoveIndicator = false;
+
+            if(playerWin) DrawTexture(win_screen, 0, 0, WHITE);
+            if(enemyWin) DrawTexture(lose_screen, 0, 0, WHITE);
+
+        }
+
         EndDrawing();
     }
 
