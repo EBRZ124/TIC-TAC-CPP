@@ -41,10 +41,35 @@ int main()
     
     srand(time(NULL));
 
+    // Number stuff
     int currentEnemyAttack = -1;
     int currentPlayerAttack = -1;
     double enemyMoveTime = 0;
     int pendingEnemyAttack = -1;
+    int fields_taken_value[9] = {0, 0, 0, 0, 0, 0, 0, 0, 0}; 
+
+    // Win checking
+    bool playerWin = false;
+    bool enemyWin = false;
+    // Horizontal
+    if(fields_taken_value[0]==fields_taken_value[1] && fields_taken_value[1]==fields_taken_value[2] && fields_taken_value[0] == 1){ playerWin = true;}
+    if(fields_taken_value[3]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[5] && fields_taken_value[3] == 1){ playerWin = true;}
+    if(fields_taken_value[6]==fields_taken_value[7] && fields_taken_value[7]==fields_taken_value[8] && fields_taken_value[6] == 1){ playerWin = true;}
+    if(fields_taken_value[0]==fields_taken_value[1] && fields_taken_value[1]==fields_taken_value[2] && fields_taken_value[0] == 2){ enemyWin = true;}
+    if(fields_taken_value[3]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[5] && fields_taken_value[3] == 2){ enemyWin = true;}
+    if(fields_taken_value[6]==fields_taken_value[7] && fields_taken_value[7]==fields_taken_value[8] && fields_taken_value[6] == 2){ enemyWin = true;}
+    // Vertical
+    if(fields_taken_value[0]==fields_taken_value[3] && fields_taken_value[3]==fields_taken_value[6] && fields_taken_value[0] == 1){ playerWin = true;}
+    if(fields_taken_value[1]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[7] && fields_taken_value[1] == 1){ playerWin = true;}
+    if(fields_taken_value[2]==fields_taken_value[5] && fields_taken_value[5]==fields_taken_value[8] && fields_taken_value[2] == 1){ playerWin = true;}
+    if(fields_taken_value[0]==fields_taken_value[3] && fields_taken_value[3]==fields_taken_value[6] && fields_taken_value[0] == 2){ enemyWin = true;}
+    if(fields_taken_value[1]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[7] && fields_taken_value[1] == 2){ enemyWin = true;}
+    if(fields_taken_value[2]==fields_taken_value[5] && fields_taken_value[5]==fields_taken_value[8] && fields_taken_value[2] == 2){ enemyWin = true;}
+    // Diagonal
+    if(fields_taken_value[0]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[8] && fields_taken_value[0] == 1){ playerWin = true;}
+    if(fields_taken_value[6]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[2] && fields_taken_value[3] == 1){ playerWin = true;}
+    if(fields_taken_value[0]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[8] && fields_taken_value[0] == 2){ enemyWin = true;}
+    if(fields_taken_value[6]==fields_taken_value[4] && fields_taken_value[4]==fields_taken_value[2] && fields_taken_value[3] == 2){ enemyWin = true;}
 
     //booleans
     bool playerAttacks[9] = {false};
@@ -84,6 +109,7 @@ int main()
                 } else {
                     playerAttacks[0] = true;
                     TakenFields[0] = true;
+                    fields_taken_value[0] = 1;
 
                     enemyThinking = true;
                     enemyMoveTime = GetTime() + 1.5;
@@ -105,6 +131,7 @@ int main()
                 } else {
                     playerAttacks[1] = true;
                     TakenFields[1] = true;
+                    fields_taken_value[1] = 1;
 
                     enemyThinking = true;
                     enemyMoveTime = GetTime() + 1.5;
@@ -125,6 +152,7 @@ int main()
                 } else {
                     playerAttacks[2] = true;
                     TakenFields[2] = true;
+                    fields_taken_value[2] = 1;
 
                     enemyThinking = true;
                     enemyMoveTime = GetTime() + 1.5;
@@ -145,6 +173,7 @@ int main()
                 } else {
                     playerAttacks[3] = true;
                     TakenFields[3] = true;
+                    fields_taken_value[3] = 1;
 
                     enemyThinking = true;
                     enemyMoveTime = GetTime() + 1.5;
@@ -162,6 +191,7 @@ int main()
                 } else {
                     playerAttacks[4] = true;
                     TakenFields[4] = true;
+                    fields_taken_value[4] = 1;
 
                     enemyThinking = true;
                     enemyMoveTime = GetTime() + 1.5;
@@ -182,6 +212,7 @@ int main()
                 } else {
                     playerAttacks[5] = true;
                     TakenFields[5] = true;
+                    fields_taken_value[5] = 1;
 
                     enemyThinking = true;
                     enemyMoveTime = GetTime() + 1.5;
@@ -202,6 +233,7 @@ int main()
                 } else {
                     playerAttacks[6] = true;
                     TakenFields[6] = true;
+                    fields_taken_value[6] = 1;
 
                     enemyThinking = true;
                     enemyMoveTime = GetTime() + 1.5;
@@ -222,6 +254,7 @@ int main()
                 } else {
                     playerAttacks[7] = true;
                     TakenFields[7] = true;
+                    fields_taken_value[7] = 1;
 
                     enemyThinking = true;
                     enemyMoveTime = GetTime() + 1.5;
@@ -242,6 +275,7 @@ int main()
                 } else {
                     playerAttacks[8] = true;
                     TakenFields[8] = true;
+                    fields_taken_value[8] = 1;
 
                     enemyThinking = true;
                     enemyMoveTime = GetTime() + 1.5;
@@ -294,6 +328,7 @@ int main()
         if(enemyThinking && GetTime() >= enemyMoveTime){
             enemyAttacks[pendingEnemyAttack] = true;
             TakenFields[pendingEnemyAttack] = true;
+            fields_taken_value[pendingEnemyAttack] = 2;
             currentEnemyAttack = pendingEnemyAttack;
 
             enemyThinking = false;
