@@ -19,7 +19,10 @@ int main()
     // Big textures
     Texture2D background = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/background.png");
     Texture2D playingGrid = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/playingGrid.png");
-    
+    Texture2D enemy_move_indicator = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/enemys-move.png");
+    Texture2D players_move_indicator = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/your-move.png");
+    Vector2 move_indicator_pos = {(float)540, (float)70};
+
     // Buttons
     Button playButton{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/play-button.png",{524, 0}, 0.20};
     Button exitButton{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/exit-button.png", {592, 412}, 0.10};
@@ -40,9 +43,16 @@ int main()
 
     int currentEnemyAttack = -1;
     int currentPlayerAttack = -1;
+    double enemyMoveTime = 0;
+    int pendingEnemyAttack = -1;
+
+    //booleans
     bool playerAttacks[9] = {false};
     bool enemyAttacks[9] = { false };
     bool TakenFields[9] = {false};
+    bool showEnemyMoveIndicator = false;
+    bool showPlayerMoveIndicator = false;
+    bool enemyThinking = false;
     bool startGame = false;
 
     // Main game loop
@@ -52,16 +62,15 @@ int main()
 
         if (playButton.isPressed(mousePosition, mousePressed)) {
             startGame = true;
-            int enemy_attack = rand() % 9;
-            if(TakenFields[enemy_attack]){
-                std::cout<<"Field Taken" << std::endl;
+            showEnemyMoveIndicator = true;
+            enemyThinking = true;
+            enemyMoveTime = GetTime() + 1.5;
+
+            int randomField = rand() % 9;
+            while(TakenFields[randomField]){
+                randomField = rand() % 9;
             }
-            else{
-                currentEnemyAttack = enemy_attack;
-                TakenFields[enemy_attack] = true;
-                enemyAttacks[enemy_attack] = true;
-                TakenFields[enemy_attack] = true;
-            }
+            pendingEnemyAttack = randomField;
         }
 
         if (exitButton.isPressed(mousePosition, mousePressed)) {
@@ -75,12 +84,19 @@ int main()
                 } else {
                     playerAttacks[0] = true;
                     TakenFields[0] = true;
-                    int enemy_attack1 = rand() % 9;
-                    while(TakenFields[enemy_attack1]){
-                        enemy_attack1 = rand() % 9;
+
+                    enemyThinking = true;
+                    enemyMoveTime = GetTime() + 1.5;
+
+                    showPlayerMoveIndicator = false;
+                    showEnemyMoveIndicator = true;
+
+                    int randomField = rand() % 9;
+                    while(TakenFields[randomField]){
+                        randomField = rand() % 9;
                     }
-                    currentEnemyAttack = enemy_attack1;
-                    TakenFields[enemy_attack1]= true;
+                    pendingEnemyAttack = randomField;
+                    
                 }
             }
             if(placementButton2.isPressed(mousePosition, mousePressed)){
@@ -89,13 +105,18 @@ int main()
                 } else {
                     playerAttacks[1] = true;
                     TakenFields[1] = true;
-                    int enemy_attack2 = rand() % 9;
-                    while(TakenFields[enemy_attack2]){
-                        enemy_attack2 = rand() % 9;
+
+                    enemyThinking = true;
+                    enemyMoveTime = GetTime() + 1.5;
+
+                    showPlayerMoveIndicator = false;
+                    showEnemyMoveIndicator = true;
+
+                    int randomField = rand() % 9;
+                    while(TakenFields[randomField]){
+                        randomField = rand() % 9;
                     }
-                    currentEnemyAttack = enemy_attack2;
-                    enemyAttacks[enemy_attack2]= true;
-                    TakenFields[enemy_attack2] = true;
+                    pendingEnemyAttack = randomField;
                 }
             }
             if(placementButton3.isPressed(mousePosition, mousePressed)){
@@ -104,13 +125,18 @@ int main()
                 } else {
                     playerAttacks[2] = true;
                     TakenFields[2] = true;
-                    int enemy_attack3 = rand() % 9;
-                    while(TakenFields[enemy_attack3]){
-                        enemy_attack3 = rand() % 9;
+
+                    enemyThinking = true;
+                    enemyMoveTime = GetTime() + 1.5;
+
+                    showPlayerMoveIndicator = false;
+                    showEnemyMoveIndicator = true;
+
+                    int randomField = rand() % 9;
+                    while(TakenFields[randomField]){
+                        randomField = rand() % 9;
                     }
-                    currentEnemyAttack = enemy_attack3;
-                    enemyAttacks[enemy_attack3] = true;
-                    TakenFields[enemy_attack3]= true;
+                    pendingEnemyAttack = randomField;
                 }
             }
             if(placementButton4.isPressed(mousePosition, mousePressed)){
@@ -119,13 +145,15 @@ int main()
                 } else {
                     playerAttacks[3] = true;
                     TakenFields[3] = true;
-                    int enemy_attack4 = rand() % 9;
-                    while(TakenFields[enemy_attack4]){
-                        enemy_attack4 = rand() % 9;
+
+                    enemyThinking = true;
+                    enemyMoveTime = GetTime() + 1.5;
+
+                    int randomField = rand() % 9;
+                    while(TakenFields[randomField]){
+                        randomField = rand() % 9;
                     }
-                    currentEnemyAttack = enemy_attack4;
-                    enemyAttacks[enemy_attack4]= true;
-                    TakenFields[enemy_attack4]= true;
+                    pendingEnemyAttack = randomField;
                 }
             }
             if(placementButton5.isPressed(mousePosition, mousePressed)){
@@ -134,13 +162,18 @@ int main()
                 } else {
                     playerAttacks[4] = true;
                     TakenFields[4] = true;
-                    int enemy_attack5 = rand() % 9;
-                    while(TakenFields[enemy_attack5]){
-                        enemy_attack5 = rand() % 9;
+
+                    enemyThinking = true;
+                    enemyMoveTime = GetTime() + 1.5;
+
+                    showPlayerMoveIndicator = false;
+                    showEnemyMoveIndicator = true;
+
+                    int randomField = rand() % 9;
+                    while(TakenFields[randomField]){
+                        randomField = rand() % 9;
                     }
-                    currentEnemyAttack = enemy_attack5;
-                    enemyAttacks[enemy_attack5] = true;
-                    TakenFields[enemy_attack5]= true;
+                    pendingEnemyAttack = randomField;
                 }
             }
             if(placementButton6.isPressed(mousePosition, mousePressed)){
@@ -149,13 +182,18 @@ int main()
                 } else {
                     playerAttacks[5] = true;
                     TakenFields[5] = true;
-                    int enemy_attack6 = rand() % 9;
-                    while(TakenFields[enemy_attack6]){
-                        enemy_attack6 = rand() % 9;
+
+                    enemyThinking = true;
+                    enemyMoveTime = GetTime() + 1.5;
+
+                    showPlayerMoveIndicator = false;
+                    showEnemyMoveIndicator = true;
+
+                    int randomField = rand() % 9;
+                    while(TakenFields[randomField]){
+                        randomField = rand() % 9;
                     }
-                    currentEnemyAttack = enemy_attack6;
-                    enemyAttacks[enemy_attack6] = true;
-                    TakenFields[enemy_attack6]= true;
+                    pendingEnemyAttack = randomField;
                 }
             }
             if(placementButton7.isPressed(mousePosition, mousePressed)){
@@ -164,13 +202,18 @@ int main()
                 } else {
                     playerAttacks[6] = true;
                     TakenFields[6] = true;
-                    int enemy_attack7 = rand() % 9;
-                    while(TakenFields[enemy_attack7]){
-                        enemy_attack7 = rand() % 9;
+
+                    enemyThinking = true;
+                    enemyMoveTime = GetTime() + 1.5;
+
+                    showPlayerMoveIndicator = false;
+                    showEnemyMoveIndicator = true;
+
+                    int randomField = rand() % 9;
+                    while(TakenFields[randomField]){
+                        randomField = rand() % 9;
                     }
-                    currentEnemyAttack = enemy_attack7;
-                    enemyAttacks[enemy_attack7] = true;
-                    TakenFields[enemy_attack7]= true;
+                    pendingEnemyAttack = randomField;
                 }
             }
             if(placementButton8.isPressed(mousePosition, mousePressed)){
@@ -179,13 +222,18 @@ int main()
                 } else {
                     playerAttacks[7] = true;
                     TakenFields[7] = true;
-                    int enemy_attack8 = rand() % 9;
-                    while(TakenFields[enemy_attack8]){
-                        enemy_attack8 = rand() % 9;
+
+                    enemyThinking = true;
+                    enemyMoveTime = GetTime() + 1.5;
+
+                    showPlayerMoveIndicator = false;
+                    showEnemyMoveIndicator = true;
+
+                    int randomField = rand() % 9;
+                    while(TakenFields[randomField]){
+                        randomField = rand() % 9;
                     }
-                    currentEnemyAttack = enemy_attack8;
-                    enemyAttacks[enemy_attack8] = true;
-                    TakenFields[enemy_attack8]= true;
+                    pendingEnemyAttack = randomField;
                 }
             }
             if(placementButton9.isPressed(mousePosition, mousePressed)){
@@ -194,12 +242,18 @@ int main()
                 } else {
                     playerAttacks[8] = true;
                     TakenFields[8] = true;
-                    int enemy_attack9 = rand() % 9;
-                    while(TakenFields[enemy_attack9]){
-                        enemy_attack9 = rand() % 9;
+
+                    enemyThinking = true;
+                    enemyMoveTime = GetTime() + 1.5;
+
+                    showPlayerMoveIndicator = false;
+                    showEnemyMoveIndicator = true;
+
+                    int randomField = rand() % 9;
+                    while(TakenFields[randomField]){
+                        randomField = rand() % 9;
                     }
-                    currentEnemyAttack = enemy_attack9;
-                    TakenFields[enemy_attack9]= true;
+                    pendingEnemyAttack = randomField;
                 }
             }
             
@@ -219,6 +273,13 @@ int main()
         placementButton8.Draw();
         placementButton9.Draw();
 
+        if(showEnemyMoveIndicator){
+            DrawTextureEx(enemy_move_indicator, move_indicator_pos, 0.0f, 0.15f, WHITE);
+        }
+        if(showPlayerMoveIndicator){
+            DrawTextureEx(players_move_indicator, move_indicator_pos, 0.0f, 0.15f, WHITE);
+        }
+
         // Player Attac Positions
         int PlayerXPos[9] = {50, 200, 350, 50, 200, 350, 50, 200, 350};
         int PlayerYPos[9] = {30, 30, 30, 190, 190, 190, 340, 340, 340};    
@@ -229,6 +290,18 @@ int main()
                 DrawTextureEx(cross, crossPos, 0.0f, 0.25f, WHITE);
             }
         }    
+
+        if(enemyThinking && GetTime() >= enemyMoveTime){
+            enemyAttacks[pendingEnemyAttack] = true;
+            TakenFields[pendingEnemyAttack] = true;
+            currentEnemyAttack = pendingEnemyAttack;
+
+            enemyThinking = false;
+            pendingEnemyAttack = -1;
+
+            showEnemyMoveIndicator = false;
+            showPlayerMoveIndicator = true;
+        }
 
         // Enemy Attack Positions
         if (currentEnemyAttack >= 0) {
