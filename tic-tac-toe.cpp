@@ -34,13 +34,13 @@ void checkWin(int fields_taken_value[9], bool &playerWin, bool &enemyWin, bool &
 
 int main()
 {
-    //--------------------------------------------------------------------------------------
+    // ---------------------------------------- MISC ----------------------------------------
     const int screenWidth = 680;
     const int screenHeight = 480;
     InitAudioDevice();
     InitWindow(screenWidth, screenHeight, "raylib [core] example - input actions");
     SetTargetFPS(60);
-    //--------------------------------------------------------------------------------------
+
     // PLaying elements
     Texture2D cross = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/cross.png");
     Texture2D circle = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/circle.png");
@@ -55,6 +55,7 @@ int main()
     Sound loseSFX = LoadSound("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Sounds/lose-sound.wav");
     Sound drawSFX = LoadSound("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Sounds/draw-sound.wav");
     Music BGM1 = LoadMusicStream("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Sounds/background-music-1.mp3");
+
     // Big textures
     Texture2D background = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/background.png");
     Texture2D playingGrid = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/playingGrid.png");
@@ -65,6 +66,7 @@ int main()
     // Buttons
     Button playButton{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/play-button.png",{524, 0}, 0.20};
     Button exitButton{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/exit-button.png", {592, 412}, 0.10};
+    Button retryButton{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/rety-button.png", {272, 350}, 0.2};
     
     // Placemenet buttons for the player/user
     Button player_placement_buttons[9];
@@ -114,7 +116,9 @@ int main()
     if(playingMusic){
         PlayMusicStream(BGM1);
     }
-    // Main game loop
+
+
+    // ---------------------------------------- Main game loop ----------------------------------------
     while (!WindowShouldClose() && !exit) {
         if(playingMusic){
             UpdateMusicStream(BGM1);
@@ -134,10 +138,27 @@ int main()
             }
             pendingEnemyAttack = randomField;
         }
-
         if (exitButton.isPressed(mousePosition, mousePressed)) {
             exit = true;
         }
+
+        BeginDrawing();
+        ClearBackground(BLACK);
+        for(int fieldButton=0; fieldButton<9; fieldButton++){
+            player_placement_buttons[fieldButton].Draw();
+        }
+        DrawTexture(background, 0, 0, WHITE);
+        DrawTexture(playingGrid, 15, 15, WHITE);
+        exitButton.Draw();
+        playButton.Draw();
+
+        if(showEnemyMoveIndicator){
+            DrawTextureEx(enemy_move_indicator, move_indicator_pos, 0.0f, 0.15f, WHITE);
+        }
+        if(showPlayerMoveIndicator){
+            DrawTextureEx(players_move_indicator, move_indicator_pos, 0.0f, 0.15f, WHITE);
+        }
+
         if(player_turn){
         for (int i = 0; i < 9; i++) {
                 if (player_placement_buttons[i].isPressed(mousePosition, mousePressed)) {
@@ -169,22 +190,6 @@ int main()
                     }
                 }
             }
-        }
-        BeginDrawing();
-        ClearBackground(BLACK);
-        for(int fieldButton=0; fieldButton<9; fieldButton++){
-            player_placement_buttons[fieldButton].Draw();
-        }
-        DrawTexture(background, 0, 0, WHITE);
-        DrawTexture(playingGrid, 15, 15, WHITE);
-        exitButton.Draw();
-        playButton.Draw();
-
-        if(showEnemyMoveIndicator){
-            DrawTextureEx(enemy_move_indicator, move_indicator_pos, 0.0f, 0.15f, WHITE);
-        }
-        if(showPlayerMoveIndicator){
-            DrawTextureEx(players_move_indicator, move_indicator_pos, 0.0f, 0.15f, WHITE);
         }
 
         // Player Attac Positions
@@ -245,6 +250,7 @@ int main()
                     PlaySound(winningSFX);
                     playedWinSound = true;
                 }
+                retryButton.Draw();
             }
             if(playerDraw) {
                 DrawTexture(draw_screen, 0, 0, WHITE);
@@ -253,6 +259,7 @@ int main()
                     PlaySound(drawSFX);
                     playedDrawSound = true;
                 }
+                retryButton.Draw();
             }
             if(enemyWin) {
                 DrawTexture(lose_screen, 0, 0, WHITE);
@@ -261,9 +268,44 @@ int main()
                     PlaySound(loseSFX);
                     playedLoseSound = true;
                 }
+                retryButton.Draw();
+            }
+
+            if(playerWin || enemyWin || playerDraw){
+                retryButton.Draw();
+                if(retryButton.isPressed(mousePosition, mousePressed)){
+                    for(int i=0; i<9; i++){
+                        TakenFields[i] = false;
+                        fields_taken_value[i] = 0;
+                        playerAttacks[i] = false;
+                        enemyAttacks[i] = false;
+                    }
+                    playerWin = false;
+                    enemyWin = false;
+                    playerDraw = false;
+
+                    playedWinSound = false;
+                    playedDrawSound = false;
+                    playedLoseSound = false;
+
+                    startGame = false;
+                    player_turn = false;
+                    enemyThinking = false;
+                    pendingEnemyAttack = -1;
+                    currentEnemyAttack = -1;
+                    currentPlayerAttack = -1;
+
+                    showEnemyMoveIndicator = false;
+                    showPlayerMoveIndicator = false;
+
+                    StopMusicStream(BGM1);
+                    playingMusic = true;
+                    PlayMusicStream(BGM1);
+
+                    to_draw_counter = 0;
+                }
             }
         }
-
         EndDrawing();
     }
     UnloadMusicStream(BGM1);
