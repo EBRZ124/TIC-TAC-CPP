@@ -35,7 +35,7 @@ buttons.cpp - button logic and functions
 
 ## WIP
 
-- Replayability - currently the game can only be played once and has to be clsoed and reopened for a new game
+- ~Replayability - currently the game can only be played once and has to be clsoed and reopened for a new game~ (Done on 08.11.2025.)
 
 - Volume control - a settings menu where audio levels can be adjusted
 
