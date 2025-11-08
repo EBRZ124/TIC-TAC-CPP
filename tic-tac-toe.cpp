@@ -37,6 +37,7 @@ int main()
     //--------------------------------------------------------------------------------------
     const int screenWidth = 680;
     const int screenHeight = 480;
+    InitAudioDevice();
     InitWindow(screenWidth, screenHeight, "raylib [core] example - input actions");
     SetTargetFPS(60);
     //--------------------------------------------------------------------------------------
@@ -47,6 +48,13 @@ int main()
     Texture2D lose_screen = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/enemy-win.png");
     Texture2D draw_screen = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/player-draw.png");
 
+    // Sounds
+    Sound crossSFX = LoadSound("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Sounds/cross-sound.wav");
+    Sound circleSFX = LoadSound("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Sounds/circle-sound.wav");
+    Sound winningSFX = LoadSound("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Sounds/win_sound.ogg");
+    Sound loseSFX = LoadSound("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Sounds/lose-sound.wav");
+    Sound drawSFX = LoadSound("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Sounds/draw-sound.wav");
+    Music BGM1 = LoadMusicStream("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Sounds/background-music-1.mp3");
     // Big textures
     Texture2D background = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/background.png");
     Texture2D playingGrid = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/playingGrid.png");
@@ -97,8 +105,20 @@ int main()
     bool playerDraw = false;
     bool startGame = false;
 
+    // Sound booleans
+    bool playedWinSound = false;
+    bool playedLoseSound = false;
+    bool playedDrawSound = false;
+    bool playingMusic = true;
+
+    if(playingMusic){
+        PlayMusicStream(BGM1);
+    }
     // Main game loop
     while (!WindowShouldClose() && !exit) {
+        if(playingMusic){
+            UpdateMusicStream(BGM1);
+        }
         Vector2 mousePosition = GetMousePosition();
         bool mousePressed = IsMouseButtonPressed(MOUSE_BUTTON_LEFT);
 
@@ -125,6 +145,7 @@ int main()
                         std::cout << "Field Taken" << std::endl;
                     } else {
                         playerAttacks[i] = true;
+                        PlaySound(crossSFX);
                         TakenFields[i] = true;
                         fields_taken_value[i] = 1;
                         to_draw_counter++;
@@ -183,6 +204,7 @@ int main()
             fields_taken_value[pendingEnemyAttack] = 2;
 
             currentEnemyAttack = pendingEnemyAttack;
+            PlaySound(circleSFX);
 
             enemyThinking = false;
             pendingEnemyAttack = -1;
@@ -216,15 +238,36 @@ int main()
             showPlayerMoveIndicator = false;
             showEnemyMoveIndicator = false;
 
-            if(playerWin) DrawTexture(win_screen, 0, 0, WHITE);
-            if(enemyWin) DrawTexture(lose_screen, 0, 0, WHITE);
-            if(playerDraw) DrawTexture(draw_screen, 0, 0, WHITE);
-
+            if(playerWin) {
+                DrawTexture(win_screen, 0, 0, WHITE);
+                playingMusic = false;
+                if(!playedWinSound){
+                    PlaySound(winningSFX);
+                    playedWinSound = true;
+                }
+            }
+            if(playerDraw) {
+                DrawTexture(draw_screen, 0, 0, WHITE);
+                playingMusic = false;
+                if(!playedDrawSound){
+                    PlaySound(drawSFX);
+                    playedDrawSound = true;
+                }
+            }
+            if(enemyWin) {
+                DrawTexture(lose_screen, 0, 0, WHITE);
+                playingMusic = false;
+                if(!playedLoseSound){
+                    PlaySound(loseSFX);
+                    playedLoseSound = true;
+                }
+            }
         }
 
         EndDrawing();
     }
-
+    UnloadMusicStream(BGM1);
+    CloseAudioDevice();
     CloseWindow();
 
     return 0;
