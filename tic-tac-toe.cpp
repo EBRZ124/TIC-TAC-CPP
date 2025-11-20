@@ -42,43 +42,43 @@ int main()
     SetTargetFPS(60);
 
     // PLaying elements
-    Texture2D cross = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/cross.png");
-    Texture2D circle = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/circle.png");
-    Texture2D win_screen = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/player-win.png");
-    Texture2D lose_screen = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/enemy-win.png");
-    Texture2D draw_screen = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/player-draw.png");
+    Texture2D cross = LoadTexture("/tic-tac-toe/Graphics/cross.png");
+    Texture2D circle = LoadTexture("/tic-tac-toe/Graphics/circle.png");
+    Texture2D win_screen = LoadTexture("/tic-tac-toe/Graphics/player-win.png");
+    Texture2D lose_screen = LoadTexture("/tic-tac-toe/Graphics/enemy-win.png");
+    Texture2D draw_screen = LoadTexture("/tic-tac-toe/Graphics/player-draw.png");
 
     // Sounds
-    Sound crossSFX = LoadSound("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Sounds/cross-sound.wav");
-    Sound circleSFX = LoadSound("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Sounds/circle-sound.wav");
-    Sound winningSFX = LoadSound("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Sounds/win_sound.ogg");
-    Sound loseSFX = LoadSound("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Sounds/lose-sound.wav");
-    Sound drawSFX = LoadSound("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Sounds/draw-sound.wav");
-    Music BGM1 = LoadMusicStream("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Sounds/background-music-1.mp3");
+    Sound crossSFX = LoadSound("/tic-tac-toe/Sounds/cross-sound.wav");
+    Sound circleSFX = LoadSound("/tic-tac-toe/Sounds/circle-sound.wav");
+    Sound winningSFX = LoadSound("/tic-tac-toe/Sounds/win_sound.ogg");
+    Sound loseSFX = LoadSound("/tic-tac-toe/Sounds/lose-sound.wav");
+    Sound drawSFX = LoadSound("/tic-tac-toe/Sounds/draw-sound.wav");
+    Music BGM1 = LoadMusicStream("/tic-tac-toe/Sounds/background-music-1.mp3");
 
     // Big textures
-    Texture2D background = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/background.png");
-    Texture2D playingGrid = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/playingGrid.png");
-    Texture2D enemy_move_indicator = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/enemys-move.png");
-    Texture2D players_move_indicator = LoadTexture("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/your-move.png");
+    Texture2D background = LoadTexture("/tic-tac-toe/Graphics/background.png");
+    Texture2D playingGrid = LoadTexture("/tic-tac-toe/Graphics/playingGrid.png");
+    Texture2D enemy_move_indicator = LoadTexture("/tic-tac-toe/Graphics/enemys-move.png");
+    Texture2D players_move_indicator = LoadTexture("/tic-tac-toe/Graphics/your-move.png");
     Vector2 move_indicator_pos = {(float)540, (float)70};
 
     // Buttons
-    Button playButton{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/play-button.png",{524, 0}, 0.20};
-    Button exitButton{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/exit-button.png", {592, 412}, 0.10};
-    Button retryButton{"/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/rety-button.png", {272, 350}, 0.2};
+    Button playButton{"/tic-tac-toe/Graphics/play-button.png",{524, 0}, 0.20};
+    Button exitButton{"/tic-tac-toe/Graphics/exit-button.png", {592, 412}, 0.10};
+    Button retryButton{"/tic-tac-toe/Graphics/rety-button.png", {272, 350}, 0.2};
     
     // Placemenet buttons for the player/user
     Button player_placement_buttons[9];
-    player_placement_buttons[0] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {25, 15}, 0.3);  
-    player_placement_buttons[1] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {180, 15}, 0.3);  
-    player_placement_buttons[2] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {340, 15}, 0.3);  
-    player_placement_buttons[3] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {25, 175}, 0.3);  
-    player_placement_buttons[4] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {180, 175}, 0.3);  
-    player_placement_buttons[5] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {340, 175}, 0.3);  
-    player_placement_buttons[6] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {25, 330}, 0.3);  
-    player_placement_buttons[7] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {180, 330}, 0.3);  
-    player_placement_buttons[8] = Button("/Users/evaldsberzins/raylib/projects/tic-tac-toe/Graphics/button-test.png", {340, 330}, 0.3);    
+    player_placement_buttons[0] = Button("/tic-tac-toe/Graphics/button-test.png", {25, 15}, 0.3);  
+    player_placement_buttons[1] = Button("/tic-tac-toe/Graphics/button-test.png", {180, 15}, 0.3);  
+    player_placement_buttons[2] = Button("/tic-tac-toe/Graphics/button-test.png", {340, 15}, 0.3);  
+    player_placement_buttons[3] = Button("/tic-tac-toe/Graphics/button-test.png", {25, 175}, 0.3);  
+    player_placement_buttons[4] = Button("/tic-tac-toe/Graphics/button-test.png", {180, 175}, 0.3);  
+    player_placement_buttons[5] = Button("/tic-tac-toe/Graphics/button-test.png", {340, 175}, 0.3);  
+    player_placement_buttons[6] = Button("/tic-tac-toe/Graphics/button-test.png", {25, 330}, 0.3);  
+    player_placement_buttons[7] = Button("/tic-tac-toe/Graphics/button-test.png", {180, 330}, 0.3);  
+    player_placement_buttons[8] = Button("/tic-tac-toe/Graphics/button-test.png", {340, 330}, 0.3);    
 
     bool exit = false;
     
